@@ -8,11 +8,12 @@ public class Pathmaker : MonoBehaviour {
 	public Transform floorPrefab2; 
 	public Transform floorPrefab3; 
 	public Transform pathmakerPrefab;
+	int height;
 	Transform tempFloor;
 
 	// Use this for initialization
 	void Start () {
-	
+		height = 0; 
 	}
 	
 	// Update is called once per frame
@@ -46,9 +47,20 @@ public class Pathmaker : MonoBehaviour {
 				tempFloor = floorPrefab3;
 			}
 			//Choosing height to spawn at
+			randomNumber = Random.Range(0f,1f);
+			if(randomNumber <= 0.5f){
+				height = 0;
+			}
+			else if(randomNumber > 0.5f && randomNumber <= 0.75f){
+				height = 5;
+			}
+			else if(randomNumber > 0.75f && randomNumber < 1f){
+				height = -5;
+			}
 
 			Object temp = Instantiate(tempFloor, transform.position, Quaternion.identity);
 			transform.position += transform.forward * 5;
+			transform.position = new Vector3 (transform.position.x, height, transform.position.z);
 			counter++;
 
 		}
